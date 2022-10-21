@@ -5,6 +5,11 @@ plugins {
     id 'java'
 }
 
+// no main manifest attribute in -plain.jar 에러 방지를 위해 -plain.jar 미생성
+jar {
+    enabled = false
+}
+
 group = 'com.crew92'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
