@@ -1,0 +1,10 @@
+= 여기담 API
+
+=== Hello!
+테스트용 Hello Controller
+
+Request
+include::{snippets}/hello/http-request.adoc[]
+
+Response
+include::{snippets}/hello/response-body.adoc[]
