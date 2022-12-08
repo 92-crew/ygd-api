@@ -1,0 +1,9 @@
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+datasource:
+  host: us-west-2.f8c2b0f4-b2c0-497b-8fd8-f47830213046.aws.ybdb.io
+  port: 9042
+  database: yugabyte
