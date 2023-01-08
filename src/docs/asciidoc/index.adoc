@@ -12,5 +12,6 @@
 
 Request
 include::{snippets}/hello/http-request.adoc[]
+
 Response
 include::{snippets}/hello/response-body.adoc[]

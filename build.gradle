@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.7.5'
+    id 'org.springframework.boot' version '2.6.3'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
     id 'org.asciidoctor.jvm.convert' version '3.3.2'
     id 'java'
@@ -31,17 +31,21 @@ ext {
 
 bootJar {
     dependsOn asciidoctor
-    from ("${asciidoctor.outputDir}") {
+    from("${asciidoctor.outputDir}") {
         into 'static/docs'
     }
 }
 
 dependencies {
-    // implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-    // implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    implementation 'com.yugabyte:spring-data-yugabytedb-ysql:2.3.0'
+    implementation 'com.yugabyte:jdbc-yugabytedb:42.3.5-yb-1'
+    implementation 'org.postgresql:postgresql'
+    implementation 'com.zaxxer:HikariCP'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 }
