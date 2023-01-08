@@ -26,6 +26,7 @@ hs_err_pid*
 **/.gradle/**
 **/resources/static/**
 **/build/**
+/.idea/
 **/.idea/**
 **/.vscode/**
 /bin/
