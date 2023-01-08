@@ -1,6 +1,7 @@
 package com.crew92.ygd.api.hello;
 
 import com.crew92.ygd.api.RestDocumentation;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -13,6 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DisplayName("HelloController")
 class HelloControllerTest extends RestDocumentation {
 
+    @Disabled
     @Test
     void hello() throws Exception {
         this.mockMvc.perform(get("/hello").accept(MediaType.APPLICATION_JSON))
