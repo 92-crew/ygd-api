@@ -9,3 +9,11 @@ yugabyte:
     load-balance: true
     username: admin
     password: M_pU7r4d7M7WcC6MvscwobHWPBxO7h
+
+# Logging
+logging.level:
+  com.zaxxer.hikari: TRACE
+  com.zaxxer.hikari.HikariConfig: DEBUG
+  com.yugabyte.data.jdbc: DEBUG
+  org.springframework.jdbc.core.JdbcTemplate: DEBUG
+  org.springframework.jdbc.core.StatementCreatorUtils: TRACE
