@@ -3,7 +3,9 @@ spring:
     activate:
       on-profile: local
 
-datasource:
-  host: us-west-2.f8c2b0f4-b2c0-497b-8fd8-f47830213046.aws.ybdb.io
-  port: 9042
-  database: yugabyte
+yugabyte:
+  datasource:
+    url: jdbc:postgresql://us-west-2.1673b1f5-94c4-4590-8466-64c2aec47aea.aws.ybdb.io:5433/ygd_dev
+    load-balance: true
+    username: admin
+    password: M_pU7r4d7M7WcC6MvscwobHWPBxO7h

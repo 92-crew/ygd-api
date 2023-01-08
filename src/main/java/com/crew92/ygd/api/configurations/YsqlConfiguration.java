@@ -5,7 +5,6 @@ import com.yugabyte.data.jdbc.repository.config.AbstractYugabyteJdbcConfiguratio
 import com.yugabyte.data.jdbc.repository.config.EnableYsqlRepositories;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,39 +14,31 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.transaction.TransactionManager;
 
 import javax.sql.DataSource;
-import java.util.Properties;
 
 @Configuration
 @EnableYsqlRepositories
 public class YsqlConfiguration extends AbstractYugabyteJdbcConfiguration {
 
-    @Value("${datasource.host}")
-    private String serverName;
-
-    @Value("${datasource.port}")
-    private String portNumber;
-
-    @Value("${datasource.database}")
-    private String databaseName;
-
     @Bean
-    DataSource dataSource() {
-        Properties poolProperties = new Properties();
-        poolProperties.setProperty("dataSourceClassName", "com.yugabyte.ysql.YBClusterAwareDataSource");
-        poolProperties.setProperty("dataSource.serverName", serverName);
-        poolProperties.setProperty("dataSource.portNumber", portNumber);
-        poolProperties.setProperty("dataSource.user", "admin");
-        poolProperties.setProperty("dataSource.password", "00iVOBFpzEjARTBtZSrea0cNNf2lhk");
-        poolProperties.setProperty("dataSource.databaseName", databaseName);
-        HikariConfig hikariConfig = new HikariConfig(poolProperties);
+    DataSource dataSource(@Value("${yugabyte.datasource.url}") String jdbcUrl,
+                          @Value("${yugabyte.datasource.driver-class-name:org.postgresql.Driver}") String driverClassName,
+                          @Value("${yugabyte.datasource.load-balance:false}") String loadBalance,
+                          @Value("${yugabyte.datasource.username}") String username,
+                          @Value("${yugabyte.datasource.password}") String password) {
+        HikariConfig hikariConfig = new HikariConfig();
+        if (driverClassName != null) {
+            hikariConfig.setDriverClassName(driverClassName);
+        }
+        hikariConfig.setJdbcUrl(jdbcUrl);
+        hikariConfig.setUsername(username);
+        hikariConfig.setPassword(password);
+        hikariConfig.addDataSourceProperty("load-balance", loadBalance);
         return new HikariDataSource(hikariConfig);
     }
 
     @Bean
-    JdbcTemplate jdbcTemplate(@Autowired DataSource dataSource) {
-
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        return jdbcTemplate;
+    JdbcTemplate jdbcTemplate(DataSource dataSource) {
+        return new JdbcTemplate(dataSource);
     }
 
     @Bean
