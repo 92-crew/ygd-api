@@ -1,5 +1,6 @@
 package com.crew92.ygd.api.configurations;
 
+import com.crew92.ygd.api.repositories.SmokingAreaRepository;
 import com.yugabyte.data.jdbc.datasource.YugabyteTransactionManager;
 import com.yugabyte.data.jdbc.repository.config.AbstractYugabyteJdbcConfiguration;
 import com.yugabyte.data.jdbc.repository.config.EnableYsqlRepositories;
@@ -16,7 +17,7 @@ import org.springframework.transaction.TransactionManager;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableYsqlRepositories
+@EnableYsqlRepositories(basePackageClasses = {SmokingAreaRepository.class})
 public class YsqlConfiguration extends AbstractYugabyteJdbcConfiguration {
 
     @Bean
@@ -33,6 +34,7 @@ public class YsqlConfiguration extends AbstractYugabyteJdbcConfiguration {
         hikariConfig.setUsername(username);
         hikariConfig.setPassword(password);
         hikariConfig.addDataSourceProperty("load-balance", loadBalance);
+
         return new HikariDataSource(hikariConfig);
     }
 
